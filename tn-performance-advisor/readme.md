@@ -1,7 +1,9 @@
 # TN Performance Advisor
 
-Author: Techn  
-Version: 0.1.2  
+Author: Techn
+
+Version: 0.1.3
+
 Status: MVP
 
 ## Purpose
@@ -17,6 +19,9 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 - Uses the OpenAI provider configured under **Settings > Connectors**.
 - Requests foreground OpenAI responses with provider storage disabled.
 - Requests strict structured output and renders explicit remediation and verification steps.
+- Returns exactly one highest-value recommendation per capture.
+- Captures only front-end HTML document requests, excluding REST and background traffic.
+- Presents plain-language steps for non-technical WordPress site owners, with specialist work converted into a copy-and-paste developer or host request.
 - Delivers updates from public GitHub releases through the native WordPress Plugins screen.
 
 ## Requirements

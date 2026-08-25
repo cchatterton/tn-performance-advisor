@@ -1,4 +1,4 @@
 {
-  "version": "0.1.2",
-  "body": "Added native GitHub updates, GitHub and Check for updates plugin-row links, manifest-first release discovery, and silent handling of unavailable performance integrations."
+  "version": "0.1.3",
+  "body": "Returns exactly one plain-language recommendation for a non-technical WordPress site owner, captures only front-end HTML document requests, and invalidates older REST captures and multi-result reports."
 }

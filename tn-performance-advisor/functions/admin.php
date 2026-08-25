@@ -71,6 +71,7 @@ function tnpa_handle_analyse() {
 		tnpa_redirect_to_options_page( $result->get_error_code() );
 	}
 
+	$result['_tnpa_schema_version'] = TNPA_RESULT_SCHEMA_VERSION;
 	update_user_meta( $user_id, tnpa_result_meta_key(), $result );
 	tnpa_redirect_to_options_page( 'success' );
 }

@@ -24,6 +24,10 @@ function tnpa_capture_query_monitor_report() {
 		return;
 	}
 
+	if ( ! tnpa_is_front_end_html_request() ) {
+		return;
+	}
+
 	$last_error = error_get_last();
 	$fatal_types = array( E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR );
 	if ( $last_error && in_array( $last_error['type'], $fatal_types, true ) ) {
@@ -63,6 +67,32 @@ function tnpa_capture_query_monitor_report() {
 }
 
 /**
+ * Returns whether the current request is a front-end HTML document request.
+ *
+ * This prevents REST, JSON, feeds, embeds, and background requests from
+ * replacing the page capture an administrator intentionally visited.
+ *
+ * @return bool
+ */
+function tnpa_is_front_end_html_request() {
+	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+		return false;
+	}
+
+	if ( function_exists( 'wp_is_json_request' ) && wp_is_json_request() ) {
+		return false;
+	}
+
+	if ( is_feed() || is_embed() || is_trackback() ) {
+		return false;
+	}
+
+	$accept = isset( $_SERVER['HTTP_ACCEPT'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_ACCEPT'] ) ) : '';
+
+	return '' !== $accept && false !== stripos( $accept, 'text/html' );
+}
+
+/**
  * Builds a compact, sanitised report from selected Query Monitor collectors.
  *
  * @return array<string, mixed>
@@ -78,7 +108,7 @@ function tnpa_build_query_monitor_report() {
 	}
 
 	$report = array(
-		'schema_version' => 1,
+		'schema_version' => TNPA_CAPTURE_SCHEMA_VERSION,
 		'captured_at'    => gmdate( 'c' ),
 		'request'        => array(
 			'path' => tnpa_sanitise_request_path( $request_path ),

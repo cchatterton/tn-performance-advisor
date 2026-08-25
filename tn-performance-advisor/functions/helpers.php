@@ -36,7 +36,11 @@ function tnpa_result_meta_key() {
 function tnpa_get_capture( $user_id ) {
 	$capture = get_user_meta( $user_id, tnpa_capture_meta_key(), true );
 
-	return is_array( $capture ) ? $capture : array();
+	if ( ! is_array( $capture ) || TNPA_CAPTURE_SCHEMA_VERSION !== ( $capture['schema_version'] ?? 0 ) ) {
+		return array();
+	}
+
+	return $capture;
 }
 
 /**
@@ -48,7 +52,11 @@ function tnpa_get_capture( $user_id ) {
 function tnpa_get_result( $user_id ) {
 	$result = get_user_meta( $user_id, tnpa_result_meta_key(), true );
 
-	return is_array( $result ) ? $result : array();
+	if ( ! is_array( $result ) || TNPA_RESULT_SCHEMA_VERSION !== ( $result['_tnpa_schema_version'] ?? 0 ) ) {
+		return array();
+	}
+
+	return $result;
 }
 
 /**

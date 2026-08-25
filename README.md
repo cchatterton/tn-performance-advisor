@@ -22,6 +22,7 @@ Missing integrations do not block activation. Performance Advisor remains dorman
 2. While logged in with an `alphasys.com.au` or `techn.com.au` email address, visit the front-end page or wp-admin screen to assess.
 3. Select **Analyse Performance** from the admin bar while viewing the target screen.
 4. Review the assigned technical work order, exact change, expected improvement, implementation steps, verification, and rollback under **Settings > Performance Advisor**.
+5. Select **Next recommendation** to request the next distinct improvement from the same capture. Previously shown recommendations are excluded from later responses.
 
 The Analyse Performance action remains available on the Performance Advisor page and analyses the most recently captured eligible request.
 

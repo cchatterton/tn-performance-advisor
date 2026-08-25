@@ -106,9 +106,9 @@ $notice = tnpa_get_admin_notice( $status );
 					<?php
 					echo esc_html(
 						sprintf(
-							/* translators: 1: recommendation priority, 2: recommendation title. */
-							__( 'Priority %1$d: %2$s', 'tn-performance-advisor' ),
-							(int) $recommendation['priority'],
+							/* translators: 1: recommendation number, 2: recommendation title. */
+							__( 'Recommendation %1$d: %2$s', 'tn-performance-advisor' ),
+							(int) ( $result['_tnpa_recommendation_number'] ?? 1 ),
 							$recommendation['title']
 						)
 					);
@@ -167,6 +167,16 @@ $notice = tnpa_get_admin_notice( $status );
 				<?php endif; ?>
 			</div>
 		<?php endforeach; ?>
+
+		<?php if ( 'improvement_found' === $result['recommendation_status'] ) : ?>
+			<div class="tnpa-actions">
+				<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+					<input type="hidden" name="action" value="tnpa_next">
+					<?php wp_nonce_field( 'tnpa_next_recommendation' ); ?>
+					<?php submit_button( __( 'Next recommendation', 'tn-performance-advisor' ), 'primary', 'submit', false ); ?>
+				</form>
+			</div>
+		<?php endif; ?>
 
 		<h3><?php esc_html_e( 'What to capture next', 'tn-performance-advisor' ); ?></h3>
 		<p><?php echo esc_html( $result['next_capture_suggestion'] ); ?></p>

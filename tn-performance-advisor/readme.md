@@ -2,7 +2,7 @@
 
 Author: Techn
 
-Version: 0.1.8
+Version: 0.1.9
 
 Status: MVP
 
@@ -24,6 +24,7 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 - Captures normal front-end and wp-admin HTML document requests, excluding REST and background traffic.
 - Presents plain-language steps for non-technical WordPress site owners, with specialist work converted into a copy-and-paste developer or host request.
 - Presents each recommendation as a ready-to-execute work order with an assigned technical role, the exact change, implementation steps, verification, and rollback.
+- Adds **Next recommendation** to recall OpenAI with the same capture and return the next distinct, evidence-backed improvement without repeating earlier results.
 - Captures the responsible component and caller for slow remote requests when Query Monitor provides them.
 - Adds Analyse Performance throughout the front-end and wp-admin admin bar, including on the Performance Advisor page, and opens the results page after analysis.
 - Preserves the exact capture used for each displayed analysis.

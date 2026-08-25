@@ -1,4 +1,4 @@
 {
-  "version": "0.1.8",
-  "body": "Corrects the obsolete front-end-only no-capture warning so it clearly explains the current front-end and wp-admin admin-bar workflow."
+  "version": "0.1.9",
+  "body": "Adds Next recommendation, which recalls OpenAI using the same capture while excluding recommendations already shown. Sequential recommendations are numbered and the flow finishes with Optimised when no further distinct improvement is supported."
 }

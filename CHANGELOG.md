@@ -2,6 +2,12 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.9 - 2026-08-26
+
+- Adds a Next recommendation button that recalls OpenAI using the same saved Query Monitor capture.
+- Stores a compact history of recommendations already shown for that capture and excludes them from later responses.
+- Numbers sequential recommendations and finishes with Optimised when no further distinct, evidence-backed improvement remains.
+
 ## 0.1.8 - 2026-08-26
 
 - Replaces the obsolete front-end-only no-capture warning with instructions for the current front-end and wp-admin admin-bar workflow.

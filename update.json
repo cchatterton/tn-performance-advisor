@@ -1,4 +1,4 @@
 {
-  "version": "0.1.3",
-  "body": "Returns exactly one plain-language recommendation for a non-technical WordPress site owner, captures only front-end HTML document requests, and invalidates older REST captures and multi-result reports."
+  "version": "0.1.4",
+  "body": "Moves Analyse Performance to the front-end admin bar, opens the Performance Advisor results page after analysis, and preserves the exact capture used for the displayed recommendation."
 }

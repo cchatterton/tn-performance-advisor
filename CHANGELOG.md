@@ -2,6 +2,12 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.4 - 2026-08-25
+
+- Moved Analyse Performance from the settings page to the front-end WordPress admin bar.
+- Continued to direct administrators to Settings > Performance Advisor after analysis.
+- Stored the exact sanitised capture with its analysis so the results page cannot report success while showing no capture.
+
 ## 0.1.3 - 2026-08-25
 
 - Limited each analysis to exactly one highest-value recommendation.

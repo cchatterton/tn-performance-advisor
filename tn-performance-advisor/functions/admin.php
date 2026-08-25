@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action( 'admin_menu', 'tnpa_register_options_page' );
+add_action( 'admin_bar_menu', 'tnpa_add_admin_bar_analyse_link', 1000 );
 add_action( 'admin_post_tnpa_analyse', 'tnpa_handle_analyse' );
 add_action( 'admin_post_tnpa_clear', 'tnpa_handle_clear' );
 
@@ -29,6 +30,46 @@ function tnpa_register_options_page() {
 }
 
 /**
+ * Adds the analysis action to the front-end admin bar.
+ *
+ * The displayed page has finished loading before the administrator can click
+ * this link, so its Query Monitor capture is already available to analyse.
+ *
+ * @param WP_Admin_Bar $admin_bar WordPress admin bar instance.
+ * @return void
+ */
+function tnpa_add_admin_bar_analyse_link( $admin_bar ) {
+	if ( is_admin() || ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'view_query_monitor' ) || ! tnpa_has_openai_connector() ) {
+		return;
+	}
+
+	$analyse_url = wp_nonce_url(
+		add_query_arg(
+			array(
+				'action' => 'tnpa_analyse',
+			),
+			admin_url( 'admin-post.php' )
+		),
+		'tnpa_analyse_capture'
+	);
+
+	$admin_bar->add_node(
+		array(
+			'id'    => 'tnpa-analyse-performance',
+			'title' => esc_html__( 'Analyse Performance', 'tn-performance-advisor' ),
+			'href'  => $analyse_url,
+			'meta'  => array(
+				'title' => esc_attr__( 'Analyse this page with Performance Advisor', 'tn-performance-advisor' ),
+			),
+		)
+	);
+}
+
+/**
  * Renders the options page.
  *
  * @return void
@@ -40,6 +81,9 @@ function tnpa_render_options_page() {
 
 	$capture               = tnpa_get_capture( get_current_user_id() );
 	$result                = tnpa_get_result( get_current_user_id() );
+	if ( empty( $capture ) && ! empty( $result['_tnpa_capture'] ) && is_array( $result['_tnpa_capture'] ) ) {
+		$capture = $result['_tnpa_capture'];
+	}
 	$has_query_monitor     = class_exists( 'QM_Collectors', false );
 	$has_openai_connector  = tnpa_has_openai_connector();
 	$status                = isset( $_GET['tnpa_status'] ) ? sanitize_key( wp_unslash( $_GET['tnpa_status'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -72,6 +116,7 @@ function tnpa_handle_analyse() {
 	}
 
 	$result['_tnpa_schema_version'] = TNPA_RESULT_SCHEMA_VERSION;
+	$result['_tnpa_capture']        = $capture;
 	update_user_meta( $user_id, tnpa_result_meta_key(), $result );
 	tnpa_redirect_to_options_page( 'success' );
 }

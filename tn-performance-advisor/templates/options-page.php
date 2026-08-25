@@ -21,7 +21,7 @@ $notice = tnpa_get_admin_notice( $status );
 	<?php endif; ?>
 
 	<p>
-		<?php esc_html_e( 'Visit the front-end page you want to test while logged in. Query Monitor will capture that request, then you can return here for a prioritised action plan.', 'tn-performance-advisor' ); ?>
+		<?php esc_html_e( 'Visit the front-end page you want to test while logged in, then select Analyse Performance in the admin bar. Performance Advisor will analyse that page and return you here.', 'tn-performance-advisor' ); ?>
 	</p>
 
 	<?php if ( ! $has_query_monitor ) : ?>
@@ -80,17 +80,6 @@ $notice = tnpa_get_admin_notice( $status );
 		</table>
 
 		<div class="tnpa-actions">
-			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-				<input type="hidden" name="action" value="tnpa_analyse">
-				<?php wp_nonce_field( 'tnpa_analyse_capture' ); ?>
-				<?php
-				$analyse_attributes = $has_openai_connector ? array() : array(
-					'disabled'      => 'disabled',
-					'aria-disabled' => 'true',
-				);
-				submit_button( __( 'Analyse Performance', 'tn-performance-advisor' ), 'primary', 'submit', false, $analyse_attributes );
-				?>
-			</form>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="tnpa_clear">
 				<?php wp_nonce_field( 'tnpa_clear_report' ); ?>

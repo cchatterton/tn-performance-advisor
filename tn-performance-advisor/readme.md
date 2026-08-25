@@ -2,7 +2,7 @@
 
 Author: Techn
 
-Version: 0.1.3
+Version: 0.1.4
 
 Status: MVP
 
@@ -22,6 +22,8 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 - Returns exactly one highest-value recommendation per capture.
 - Captures only front-end HTML document requests, excluding REST and background traffic.
 - Presents plain-language steps for non-technical WordPress site owners, with specialist work converted into a copy-and-paste developer or host request.
+- Adds Analyse Performance to the front-end admin bar and opens the results page after analysis.
+- Preserves the exact capture used for each displayed analysis.
 - Delivers updates from public GitHub releases through the native WordPress Plugins screen.
 
 ## Requirements
@@ -39,7 +41,8 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 3. Upload and activate TN Performance Advisor.
 4. Add the OpenAI API key under **Settings > Connectors**.
 5. While logged in as an administrator, visit the front-end page you want to assess.
-6. Open **Settings > Performance Advisor** and select **Analyse Performance**.
+6. Select **Analyse Performance** in the admin bar.
+7. Review the recommendation on **Settings > Performance Advisor**.
 
 ## Folder Structure
 

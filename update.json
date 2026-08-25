@@ -1,4 +1,4 @@
 {
-  "version": "0.1.4",
-  "body": "Moves Analyse Performance to the front-end admin bar, opens the Performance Advisor results page after analysis, and preserves the exact capture used for the displayed recommendation."
+  "version": "0.1.5",
+  "body": "Supports normal wp-admin and front-end performance captures for approved email domains. Recommendations must be concrete, evidence-backed improvements; when no worthwhile change is supported, the advisor reports Optimised instead of inventing filler."
 }

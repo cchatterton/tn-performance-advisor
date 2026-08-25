@@ -2,7 +2,7 @@
 
 Author: Techn
 
-Version: 0.1.4
+Version: 0.1.5
 
 Status: MVP
 
@@ -12,18 +12,20 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 
 ## Key Features
 
-- Adds **Settings > Performance Advisor**.
-- Captures the latest front-end request viewed by an administrator.
+- Adds **Settings > Performance Advisor** for approved users.
+- Captures the latest front-end page or normal wp-admin screen viewed by an approved administrator.
 - Uses Query Monitor for timing, query, HTTP, PHP error, asset, cache, and environment data.
 - Removes query-string values, SQL values, request headers, bodies, cookies, credentials, and file paths before storage or transmission.
 - Uses the OpenAI provider configured under **Settings > Connectors**.
 - Requests foreground OpenAI responses with provider storage disabled.
 - Requests strict structured output and renders explicit remediation and verification steps.
-- Returns exactly one highest-value recommendation per capture.
-- Captures only front-end HTML document requests, excluding REST and background traffic.
+- Returns one highest-value evidence-backed improvement, or clearly reports **Optimised** when the supplied data supports no worthwhile change.
+- Keeps measurement and diagnostic follow-ups separate from performance recommendations.
+- Captures normal front-end and wp-admin HTML document requests, excluding REST and background traffic.
 - Presents plain-language steps for non-technical WordPress site owners, with specialist work converted into a copy-and-paste developer or host request.
 - Adds Analyse Performance to the front-end admin bar and opens the results page after analysis.
 - Preserves the exact capture used for each displayed analysis.
+- Restricts captures, settings, and analysis actions to users with an `alphasys.com.au` or `techn.com.au` email address.
 - Delivers updates from public GitHub releases through the native WordPress Plugins screen.
 
 ## Requirements
@@ -40,9 +42,9 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 2. Install and activate AI Provider for OpenAI.
 3. Upload and activate TN Performance Advisor.
 4. Add the OpenAI API key under **Settings > Connectors**.
-5. While logged in as an administrator, visit the front-end page you want to assess.
+5. While logged in with an approved email address, visit the front-end page or wp-admin screen you want to assess.
 6. Select **Analyse Performance** in the admin bar.
-7. Review the recommendation on **Settings > Performance Advisor**.
+7. Review the recommendation or Optimised result on **Settings > Performance Advisor**.
 
 ## Folder Structure
 
@@ -66,6 +68,7 @@ tn-performance-advisor/
 ## Important Notes
 
 - Analysis is manual and administrator-only.
+- Feature access is limited to users whose email domain is exactly `alphasys.com.au` or `techn.com.au`.
 - The plugin never reads or stores the OpenAI key itself.
 - If Query Monitor, the WordPress AI Client, or AI Provider for OpenAI is unavailable, the plugin remains inactive without displaying an error or blocking WordPress.
 - A capture represents one WordPress request, not aggregate production traffic or browser Core Web Vitals.

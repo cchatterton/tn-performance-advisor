@@ -20,6 +20,10 @@ add_action( 'admin_post_tnpa_clear', 'tnpa_handle_clear' );
  * @return void
  */
 function tnpa_register_options_page() {
+	if ( ! tnpa_current_user_is_allowed() ) {
+		return;
+	}
+
 	add_options_page(
 		__( 'Performance Advisor', 'tn-performance-advisor' ),
 		__( 'Performance Advisor', 'tn-performance-advisor' ),
@@ -39,7 +43,13 @@ function tnpa_register_options_page() {
  * @return void
  */
 function tnpa_add_admin_bar_analyse_link( $admin_bar ) {
-	if ( is_admin() || ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
+	if ( ! tnpa_current_user_is_allowed() || ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	// Do not offer to analyse the results screen itself.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( is_admin() && isset( $_GET['page'] ) && 'tn-performance-advisor' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 		return;
 	}
 
@@ -75,7 +85,7 @@ function tnpa_add_admin_bar_analyse_link( $admin_bar ) {
  * @return void
  */
 function tnpa_render_options_page() {
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! tnpa_current_user_is_allowed() ) {
 		wp_die( esc_html__( 'You are not allowed to access this page.', 'tn-performance-advisor' ) );
 	}
 
@@ -97,7 +107,7 @@ function tnpa_render_options_page() {
  * @return void
  */
 function tnpa_handle_analyse() {
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! tnpa_current_user_is_allowed() ) {
 		wp_die( esc_html__( 'You are not allowed to perform this action.', 'tn-performance-advisor' ) );
 	}
 
@@ -127,7 +137,7 @@ function tnpa_handle_analyse() {
  * @return void
  */
 function tnpa_handle_clear() {
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! tnpa_current_user_is_allowed() ) {
 		wp_die( esc_html__( 'You are not allowed to perform this action.', 'tn-performance-advisor' ) );
 	}
 

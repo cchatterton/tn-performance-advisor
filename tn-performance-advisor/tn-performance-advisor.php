@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TN Performance Advisor
  * Description: Turns a sanitised Query Monitor capture into a prioritised performance action plan using the WordPress AI Client.
- * Version: 0.1.4
+ * Version: 0.1.5
  * Requires at least: 7.0
  * Requires PHP: 7.4
  * Update URI: https://github.com/cchatterton/tn-performance-advisor
@@ -15,11 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'TNPA_VERSION', '0.1.4' );
+define( 'TNPA_VERSION', '0.1.5' );
 define( 'TNPA_PLUGIN_FILE', __FILE__ );
 define( 'TNPA_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'TNPA_CAPTURE_SCHEMA_VERSION', 2 );
-define( 'TNPA_RESULT_SCHEMA_VERSION', 3 );
+define( 'TNPA_RESULT_SCHEMA_VERSION', 4 );
 
 require_once TNPA_PLUGIN_DIR . 'functions/github-updater.php';
 

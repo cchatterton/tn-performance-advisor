@@ -20,11 +20,11 @@ add_action( 'shutdown', 'tnpa_capture_query_monitor_report', 8 );
  * @return void
  */
 function tnpa_capture_query_monitor_report() {
-	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || ! is_user_logged_in() ) {
+	if ( wp_doing_ajax() || wp_doing_cron() || ! tnpa_current_user_is_allowed() ) {
 		return;
 	}
 
-	if ( ! tnpa_is_front_end_html_request() ) {
+	if ( ! tnpa_is_captureable_html_request() ) {
 		return;
 	}
 
@@ -67,14 +67,14 @@ function tnpa_capture_query_monitor_report() {
 }
 
 /**
- * Returns whether the current request is a front-end HTML document request.
+ * Returns whether the current request is a captureable HTML document request.
  *
  * This prevents REST, JSON, feeds, embeds, and background requests from
- * replacing the page capture an administrator intentionally visited.
+ * replacing the front-end or wp-admin capture an administrator intentionally visited.
  *
  * @return bool
  */
-function tnpa_is_front_end_html_request() {
+function tnpa_is_captureable_html_request() {
 	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
 		return false;
 	}
@@ -84,6 +84,17 @@ function tnpa_is_front_end_html_request() {
 	}
 
 	if ( is_feed() || is_embed() || is_trackback() ) {
+		return false;
+	}
+
+	$script_name = isset( $_SERVER['SCRIPT_NAME'] ) ? wp_unslash( $_SERVER['SCRIPT_NAME'] ) : '';
+	if ( is_string( $script_name ) && 'admin-post.php' === basename( $script_name ) ) {
+		return false;
+	}
+
+	// Do not replace the source capture while displaying its results.
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( is_admin() && isset( $_GET['page'] ) && 'tn-performance-advisor' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 		return false;
 	}
 
@@ -111,8 +122,9 @@ function tnpa_build_query_monitor_report() {
 		'schema_version' => TNPA_CAPTURE_SCHEMA_VERSION,
 		'captured_at'    => gmdate( 'c' ),
 		'request'        => array(
-			'path' => tnpa_sanitise_request_path( $request_path ),
-			'type' => tnpa_get_request_type(),
+			'path'         => tnpa_sanitise_request_path( $request_path ),
+			'type'         => tnpa_get_request_type(),
+			'admin_screen' => tnpa_get_admin_screen_id(),
 		),
 		'overview'       => tnpa_capture_overview(),
 		'database'       => tnpa_capture_database(),
@@ -132,6 +144,10 @@ function tnpa_build_query_monitor_report() {
  * @return string
  */
 function tnpa_get_request_type() {
+	if ( is_admin() ) {
+		return 'admin';
+	}
+
 	if ( is_front_page() ) {
 		return 'front_page';
 	}
@@ -152,6 +168,21 @@ function tnpa_get_request_type() {
 	}
 
 	return 'front_end';
+}
+
+/**
+ * Returns a non-sensitive WordPress admin screen identifier.
+ *
+ * @return string
+ */
+function tnpa_get_admin_screen_id() {
+	if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
+		return '';
+	}
+
+	$screen = get_current_screen();
+
+	return $screen && isset( $screen->id ) ? sanitize_key( $screen->id ) : '';
 }
 
 /**

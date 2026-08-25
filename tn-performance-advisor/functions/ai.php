@@ -46,8 +46,15 @@ function tnpa_analyse_capture( $capture ) {
 			'Give explicit, safe WordPress implementation steps suitable for a developer.',
 			'Do not recommend disabling security, TLS verification, backups, or production safeguards.',
 			'When code or configuration changes are suggested, instruct the developer to test in staging and take a backup first.',
-			'If the capture is insufficient, say so and explain which page or measurement should be captured next.',
-			'Return exactly one recommendation: the single highest-value next action supported by the evidence.',
+			'A recommendation must be a direct change that is likely to improve performance, tied to a specific component and evidence in the capture.',
+			'Do not present measuring, tracing, auditing, monitoring, investigating, or asking a developer to look for a problem as a recommendation.',
+			'Do not recommend fixing a PHP warning unless the evidence shows that it is affecting performance.',
+			'Return the single highest-value evidence-backed improvement whenever the capture supports one.',
+			'If the supplied data supports no worthwhile performance change, return no recommendation, set recommendation_status to optimised, and briefly explain why.',
+			'Prefer an optimised result over a generic, speculative, or low-value recommendation.',
+			'Put any useful measurement or diagnostic follow-up only in next_capture_suggestion, never in recommendations.',
+			'When recommendation_status is improvement_found, return exactly one recommendation and an empty optimised_reason.',
+			'When recommendation_status is optimised, return zero recommendations and a concise optimised_reason.',
 		)
 	);
 
@@ -76,11 +83,28 @@ function tnpa_analyse_capture( $capture ) {
 	}
 
 	$decoded = json_decode( (string) $result, true );
-	if ( ! is_array( $decoded ) || ! isset( $decoded['summary'], $decoded['recommendations'], $decoded['next_capture_suggestion'] ) ) {
+	if ( ! tnpa_is_valid_ai_result( $decoded ) ) {
 		return new WP_Error( 'tnpa_invalid_ai_response', __( 'OpenAI returned an unexpected response. Please try again.', 'tn-performance-advisor' ) );
 	}
 
 	return $decoded;
+}
+
+/**
+ * Checks that the result status and recommendation count agree.
+ *
+ * @param mixed $result Decoded AI response.
+ * @return bool
+ */
+function tnpa_is_valid_ai_result( $result ) {
+	if ( ! is_array( $result ) || ! isset( $result['summary'], $result['recommendation_status'], $result['optimised_reason'], $result['recommendations'], $result['next_capture_suggestion'] ) || ! is_array( $result['recommendations'] ) ) {
+		return false;
+	}
+
+	$count = count( $result['recommendations'] );
+
+	return ( 'improvement_found' === $result['recommendation_status'] && 1 === $count && '' === $result['optimised_reason'] )
+		|| ( 'optimised' === $result['recommendation_status'] && 0 === $count && '' !== trim( $result['optimised_reason'] ) );
 }
 
 /**
@@ -96,9 +120,16 @@ function tnpa_get_result_schema() {
 			'summary' => array(
 				'type' => 'string',
 			),
+			'recommendation_status' => array(
+				'type' => 'string',
+				'enum' => array( 'improvement_found', 'optimised' ),
+			),
+			'optimised_reason' => array(
+				'type' => 'string',
+			),
 			'recommendations' => array(
 				'type'     => 'array',
-				'minItems' => 1,
+				'minItems' => 0,
 				'maxItems' => 1,
 				'items'    => array(
 					'type'                 => 'object',
@@ -147,6 +178,6 @@ function tnpa_get_result_schema() {
 				'type' => 'string',
 			),
 		),
-		'required' => array( 'summary', 'recommendations', 'next_capture_suggestion' ),
+		'required' => array( 'summary', 'recommendation_status', 'optimised_reason', 'recommendations', 'next_capture_suggestion' ),
 	);
 }

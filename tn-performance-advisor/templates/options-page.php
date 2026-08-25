@@ -21,7 +21,7 @@ $notice = tnpa_get_admin_notice( $status );
 	<?php endif; ?>
 
 	<p>
-		<?php esc_html_e( 'Visit the front-end page you want to test while logged in, then select Analyse Performance in the admin bar. Performance Advisor will analyse that page and return you here.', 'tn-performance-advisor' ); ?>
+		<?php esc_html_e( 'Visit the front-end page or wp-admin screen you want to test, then select Analyse Performance in the admin bar. Performance Advisor will analyse that request and return you here.', 'tn-performance-advisor' ); ?>
 	</p>
 
 	<?php if ( ! $has_query_monitor ) : ?>
@@ -48,7 +48,7 @@ $notice = tnpa_get_admin_notice( $status );
 	<h2><?php esc_html_e( 'Latest capture', 'tn-performance-advisor' ); ?></h2>
 
 	<?php if ( empty( $capture ) ) : ?>
-		<p><?php esc_html_e( 'No front-end request has been captured yet.', 'tn-performance-advisor' ); ?></p>
+		<p><?php esc_html_e( 'No page or wp-admin request has been captured yet.', 'tn-performance-advisor' ); ?></p>
 	<?php else : ?>
 		<table class="widefat striped tnpa-capture-table">
 			<tbody>
@@ -90,8 +90,15 @@ $notice = tnpa_get_admin_notice( $status );
 
 	<?php if ( ! empty( $result ) ) : ?>
 		<hr>
-		<h2><?php esc_html_e( 'Recommendations', 'tn-performance-advisor' ); ?></h2>
+		<h2><?php esc_html_e( 'Recommendation', 'tn-performance-advisor' ); ?></h2>
 		<p><?php echo esc_html( $result['summary'] ); ?></p>
+
+		<?php if ( 'optimised' === $result['recommendation_status'] ) : ?>
+			<div class="notice notice-success inline">
+				<p><strong><?php esc_html_e( 'Optimised', 'tn-performance-advisor' ); ?></strong></p>
+				<p><?php echo esc_html( $result['optimised_reason'] ); ?></p>
+			</div>
+		<?php endif; ?>
 
 		<?php foreach ( $result['recommendations'] as $recommendation ) : ?>
 			<div class="card tnpa-recommendation">

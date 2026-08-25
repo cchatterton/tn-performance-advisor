@@ -28,6 +28,29 @@ function tnpa_result_meta_key() {
 }
 
 /**
+ * Returns whether the current user's email belongs to an approved organisation.
+ *
+ * @return bool
+ */
+function tnpa_current_user_is_allowed() {
+	if ( ! is_user_logged_in() ) {
+		return false;
+	}
+
+	$user = wp_get_current_user();
+	if ( ! is_object( $user ) || empty( $user->user_email ) || ! is_string( $user->user_email ) ) {
+		return false;
+	}
+
+	$email_parts = explode( '@', strtolower( trim( $user->user_email ) ) );
+	if ( 2 !== count( $email_parts ) ) {
+		return false;
+	}
+
+	return in_array( $email_parts[1], array( 'alphasys.com.au', 'techn.com.au' ), true );
+}
+
+/**
  * Returns the latest capture for a user.
  *
  * @param int $user_id User ID.

@@ -2,6 +2,14 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.5 - 2026-08-26
+
+- Added capture and admin-bar analysis support for normal wp-admin screens.
+- Continued to exclude REST, JSON, AJAX, cron, feeds, embeds, trackbacks, admin-post actions, and the Performance Advisor results screen.
+- Restricted Performance Advisor menu visibility, captures, and analysis actions to users with an alphasys.com.au or techn.com.au email domain.
+- Returns one concrete, evidence-backed performance improvement, or Optimised when the supplied capture supports no worthwhile change.
+- Keeps measurement, tracing, and investigation suggestions out of the recommendation and in the separate next-capture note.
+
 ## 0.1.4 - 2026-08-25
 
 - Moved Analyse Performance from the settings page to the front-end WordPress admin bar.

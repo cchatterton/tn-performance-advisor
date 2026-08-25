@@ -172,7 +172,7 @@ function tnpa_get_admin_notice( $status ) {
 	$notices = array(
 		'success'                  => array( 'type' => 'success', 'message' => __( 'Performance analysis completed.', 'tn-performance-advisor' ) ),
 		'cleared'                  => array( 'type' => 'success', 'message' => __( 'The saved capture and recommendations were cleared.', 'tn-performance-advisor' ) ),
-		'no_capture'               => array( 'type' => 'warning', 'message' => __( 'Visit a front-end page while logged in, then return here to analyse it.', 'tn-performance-advisor' ) ),
+		'no_capture'               => array( 'type' => 'warning', 'message' => __( 'No eligible capture is available yet. Visit the front-end page or wp-admin screen you want to test, then select Analyse Performance in the admin bar.', 'tn-performance-advisor' ) ),
 		'tnpa_openai_unavailable'  => array( 'type' => 'error', 'message' => __( 'The OpenAI connector is unavailable. Configure it under Settings > Connectors.', 'tn-performance-advisor' ) ),
 		'tnpa_ai_disabled'         => array( 'type' => 'error', 'message' => __( 'AI features are disabled in this WordPress environment.', 'tn-performance-advisor' ) ),
 		'tnpa_invalid_capture'     => array( 'type' => 'error', 'message' => __( 'The performance capture could not be prepared for analysis.', 'tn-performance-advisor' ) ),

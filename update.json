@@ -1,4 +1,4 @@
 {
-  "version": "0.1.7",
-  "body": "Recommendations are now ready-to-execute technical work orders with an assigned role, exact change, implementation steps, verification, and rollback. Remote-request captures include the responsible Query Monitor component and caller when available."
+  "version": "0.1.8",
+  "body": "Corrects the obsolete front-end-only no-capture warning so it clearly explains the current front-end and wp-admin admin-bar workflow."
 }

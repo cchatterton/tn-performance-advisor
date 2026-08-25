@@ -2,6 +2,11 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.8 - 2026-08-26
+
+- Replaces the obsolete front-end-only no-capture warning with instructions for the current front-end and wp-admin admin-bar workflow.
+- Clarifies that older captures invalidated by an update must be replaced by visiting the target screen and selecting Analyse Performance.
+
 ## 0.1.7 - 2026-08-26
 
 - Recasts each recommendation as a ready-to-execute work order assigned to a developer, systems administrator, host, or WordPress administrator.

@@ -1,0 +1,22 @@
+.tnpa-capture-table {
+	max-width: 760px;
+}
+
+.tnpa-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 16px 0;
+}
+
+.tnpa-actions form {
+	margin: 0;
+}
+
+.tnpa-recommendation {
+	max-width: 900px;
+}
+
+.tnpa-recommendation li + li {
+	margin-top: 6px;
+}

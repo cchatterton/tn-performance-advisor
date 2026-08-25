@@ -1,0 +1,4 @@
+{
+  "version": "0.1.2",
+  "body": "Added native GitHub updates, GitHub and Check for updates plugin-row links, manifest-first release discovery, and silent handling of unavailable performance integrations."
+}

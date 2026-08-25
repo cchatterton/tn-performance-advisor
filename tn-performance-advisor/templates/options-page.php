@@ -125,8 +125,9 @@ $notice = tnpa_get_admin_notice( $status );
 				<h4><?php esc_html_e( 'What this means', 'tn-performance-advisor' ); ?></h4>
 				<p><?php echo esc_html( $recommendation['plain_english_explanation'] ); ?></p>
 
-				<h4><?php esc_html_e( 'What you should do', 'tn-performance-advisor' ); ?></h4>
-				<p><?php echo esc_html( $recommendation['site_owner_action'] ); ?></p>
+				<h4><?php esc_html_e( 'Change to make', 'tn-performance-advisor' ); ?></h4>
+				<p><strong><?php esc_html_e( 'Assigned to:', 'tn-performance-advisor' ); ?></strong> <?php echo esc_html( ucwords( str_replace( '_', ' ', $recommendation['implementation_owner'] ) ) ); ?></p>
+				<p><?php echo esc_html( $recommendation['change_to_make'] ); ?></p>
 
 				<p><strong><?php esc_html_e( 'Expected improvement:', 'tn-performance-advisor' ); ?></strong> <?php echo esc_html( $recommendation['expected_improvement'] ); ?></p>
 
@@ -140,9 +141,9 @@ $notice = tnpa_get_admin_notice( $status );
 				<h4><?php esc_html_e( 'Why it matters', 'tn-performance-advisor' ); ?></h4>
 				<p><?php echo esc_html( $recommendation['why_it_matters'] ); ?></p>
 
-				<h4><?php esc_html_e( 'How to fix it', 'tn-performance-advisor' ); ?></h4>
+				<h4><?php esc_html_e( 'Implementation steps', 'tn-performance-advisor' ); ?></h4>
 				<ol>
-					<?php foreach ( $recommendation['instructions'] as $item ) : ?>
+					<?php foreach ( $recommendation['implementation_steps'] as $item ) : ?>
 						<li><?php echo esc_html( $item ); ?></li>
 					<?php endforeach; ?>
 				</ol>
@@ -153,6 +154,13 @@ $notice = tnpa_get_admin_notice( $status );
 						<li><?php echo esc_html( $item ); ?></li>
 					<?php endforeach; ?>
 				</ul>
+
+				<h4><?php esc_html_e( 'Rollback', 'tn-performance-advisor' ); ?></h4>
+				<ol>
+					<?php foreach ( $recommendation['rollback_steps'] as $item ) : ?>
+						<li><?php echo esc_html( $item ); ?></li>
+					<?php endforeach; ?>
+				</ol>
 
 				<?php if ( '' !== $recommendation['caution'] ) : ?>
 					<p><strong><?php esc_html_e( 'Caution:', 'tn-performance-advisor' ); ?></strong> <?php echo esc_html( $recommendation['caution'] ); ?></p>

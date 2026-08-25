@@ -2,6 +2,13 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.7 - 2026-08-26
+
+- Recasts each recommendation as a ready-to-execute work order assigned to a developer, systems administrator, host, or WordPress administrator.
+- Requires an exact change, direct implementation steps, verification steps, and rollback steps instead of asking the implementer to create their own plan.
+- Captures the responsible Query Monitor component and caller for remote requests when available.
+- Rejects handoff and investigation language as implementation steps.
+
 ## 0.1.6 - 2026-08-26
 
 - Shows Analyse Performance throughout wp-admin, including on the Performance Advisor results page.

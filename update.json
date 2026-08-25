@@ -1,4 +1,4 @@
 {
-  "version": "0.1.6",
-  "body": "Shows Analyse Performance throughout wp-admin, including on the results page. Recommendations now lead with a plain-English explanation, the site owner's exact next action, and the expected improvement, and no longer infer that repeated remote calls are duplicates without proof."
+  "version": "0.1.7",
+  "body": "Recommendations are now ready-to-execute technical work orders with an assigned role, exact change, implementation steps, verification, and rollback. Remote-request captures include the responsible Query Monitor component and caller when available."
 }

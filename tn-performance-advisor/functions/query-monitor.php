@@ -303,6 +303,8 @@ function tnpa_capture_http_requests() {
 			continue;
 		}
 
+		$attribution = tnpa_get_row_attribution( array( 'trace' => $request->trace ?? null ) );
+
 		$items[] = array(
 			'host'       => isset( $request->host ) ? sanitize_text_field( $request->host ) : '',
 			'method'     => isset( $request->args['method'] ) ? sanitize_key( $request->args['method'] ) : '',
@@ -310,6 +312,8 @@ function tnpa_capture_http_requests() {
 			'result'     => isset( $request->type ) ? sanitize_text_field( $request->type ) : 'unknown',
 			'is_local'   => ! empty( $request->local ),
 			'intercepted' => ! empty( $request->intercepted ),
+			'component'  => $attribution['component'],
+			'caller'     => $attribution['caller'],
 		);
 	}
 

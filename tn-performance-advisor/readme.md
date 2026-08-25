@@ -2,7 +2,7 @@
 
 Author: Techn
 
-Version: 0.1.5
+Version: 0.1.6
 
 Status: MVP
 
@@ -23,7 +23,8 @@ TN Performance Advisor captures sanitised diagnostics from Query Monitor and use
 - Keeps measurement and diagnostic follow-ups separate from performance recommendations.
 - Captures normal front-end and wp-admin HTML document requests, excluding REST and background traffic.
 - Presents plain-language steps for non-technical WordPress site owners, with specialist work converted into a copy-and-paste developer or host request.
-- Adds Analyse Performance to the front-end admin bar and opens the results page after analysis.
+- Shows **What this means**, **What you should do**, and the expected improvement before technical evidence.
+- Adds Analyse Performance throughout the front-end and wp-admin admin bar, including on the Performance Advisor page, and opens the results page after analysis.
 - Preserves the exact capture used for each displayed analysis.
 - Restricts captures, settings, and analysis actions to users with an `alphasys.com.au` or `techn.com.au` email address.
 - Delivers updates from public GitHub releases through the native WordPress Plugins screen.

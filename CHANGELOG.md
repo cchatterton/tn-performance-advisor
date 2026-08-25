@@ -2,6 +2,13 @@
 
 All notable changes to TN Performance Advisor are recorded here.
 
+## 0.1.6 - 2026-08-26
+
+- Shows Analyse Performance throughout wp-admin, including on the Performance Advisor results page.
+- Adds plain-language What this means, What you should do, and Expected improvement sections before technical evidence.
+- Prevents the advisor from claiming repeated remote requests are duplicates when the sanitised capture does not prove it.
+- Invalidates older result shapes so existing unclear recommendations are not retained after updating.
+
 ## 0.1.5 - 2026-08-26
 
 - Added capture and admin-bar analysis support for normal wp-admin screens.

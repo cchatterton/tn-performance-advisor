@@ -122,6 +122,14 @@ $notice = tnpa_get_admin_notice( $status );
 					<?php echo esc_html( ucfirst( $recommendation['confidence'] ) ); ?>
 				</p>
 
+				<h4><?php esc_html_e( 'What this means', 'tn-performance-advisor' ); ?></h4>
+				<p><?php echo esc_html( $recommendation['plain_english_explanation'] ); ?></p>
+
+				<h4><?php esc_html_e( 'What you should do', 'tn-performance-advisor' ); ?></h4>
+				<p><?php echo esc_html( $recommendation['site_owner_action'] ); ?></p>
+
+				<p><strong><?php esc_html_e( 'Expected improvement:', 'tn-performance-advisor' ); ?></strong> <?php echo esc_html( $recommendation['expected_improvement'] ); ?></p>
+
 				<h4><?php esc_html_e( 'Evidence', 'tn-performance-advisor' ); ?></h4>
 				<ul>
 					<?php foreach ( $recommendation['evidence'] as $item ) : ?>
@@ -129,6 +137,7 @@ $notice = tnpa_get_admin_notice( $status );
 					<?php endforeach; ?>
 				</ul>
 
+				<h4><?php esc_html_e( 'Why it matters', 'tn-performance-advisor' ); ?></h4>
 				<p><?php echo esc_html( $recommendation['why_it_matters'] ); ?></p>
 
 				<h4><?php esc_html_e( 'How to fix it', 'tn-performance-advisor' ); ?></h4>

@@ -21,7 +21,9 @@ Missing integrations do not block activation. Performance Advisor remains dorman
 1. Configure OpenAI under **Settings > Connectors**.
 2. While logged in with an `alphasys.com.au` or `techn.com.au` email address, visit the front-end page or wp-admin screen to assess.
 3. Select **Analyse Performance** from the admin bar while viewing the target screen.
-4. Review the result under **Settings > Performance Advisor**.
+4. Review **What this means**, **What you should do**, and the expected improvement under **Settings > Performance Advisor**.
+
+The Analyse Performance action remains available on the Performance Advisor page and analyses the most recently captured eligible request.
 
 ## Updates
 

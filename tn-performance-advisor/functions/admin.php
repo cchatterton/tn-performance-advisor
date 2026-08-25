@@ -34,7 +34,7 @@ function tnpa_register_options_page() {
 }
 
 /**
- * Adds the analysis action to the front-end admin bar.
+ * Adds the analysis action to the WordPress admin bar.
  *
  * The displayed page has finished loading before the administrator can click
  * this link, so its Query Monitor capture is already available to analyse.
@@ -44,12 +44,6 @@ function tnpa_register_options_page() {
  */
 function tnpa_add_admin_bar_analyse_link( $admin_bar ) {
 	if ( ! tnpa_current_user_is_allowed() || ! current_user_can( 'manage_options' ) ) {
-		return;
-	}
-
-	// Do not offer to analyse the results screen itself.
-	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	if ( is_admin() && isset( $_GET['page'] ) && 'tn-performance-advisor' === sanitize_key( wp_unslash( $_GET['page'] ) ) ) {
 		return;
 	}
 
@@ -73,7 +67,7 @@ function tnpa_add_admin_bar_analyse_link( $admin_bar ) {
 			'title' => esc_html__( 'Analyse Performance', 'tn-performance-advisor' ),
 			'href'  => $analyse_url,
 			'meta'  => array(
-				'title' => esc_attr__( 'Analyse this page with Performance Advisor', 'tn-performance-advisor' ),
+				'title' => esc_attr__( 'Analyse the latest captured request with Performance Advisor', 'tn-performance-advisor' ),
 			),
 		)
 	);
